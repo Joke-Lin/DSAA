@@ -1,8 +1,10 @@
 //GRAPH -- no direction
+//using the way of Floyd  O(n^3)
 
 #include<stdio.h>
 
 #define max 10
+#define MAX 9999
 
 typedef struct
 {
@@ -11,7 +13,7 @@ typedef struct
 	int connection[max][max]; //相互关系 
 }GRAPH;
 
-void creatgraph(GRAPH *p)
+void CreatGraph(GRAPH *p)
 {
 	printf("请输入图的点和边数: ");
 	scanf("%d%d",&p->Vnum,&p->Enum);
@@ -27,7 +29,11 @@ void creatgraph(GRAPH *p)
 	}
 	for(int i = 0;i < p->Vnum;i++)
 	{
-		for(int j = 0;j < p->Vnum;j++) p->connection[i][j]=0;
+		for(int j = 0;j < p->Vnum;j++) 
+		{
+			if(i==j) p->connection[i][j]=0;
+			else p->connection[i][j]=MAX;
+		}
 	}
 	printf("请输入两点之间的边:\n\n");
 	for(int i = 0;i < p->Enum;i++)
@@ -40,7 +46,23 @@ void creatgraph(GRAPH *p)
 	}
 } 
 
-void printgraph(GRAPH *p)
+void SearchTheway(GRAPH *p)
+{
+	int k,i,j;
+	for(k = 0;k < p->Vnum;k++)
+	{
+		for(i = 0;i < p->Vnum;i++)
+		{
+			for(j = 0;j < p->Vnum;j++)
+			{
+				if(p->connection[i][j]>p->connection[i][k]+p->connection[k][j]&&p->connection[i][k]<MAX&&p->connection[k][j]<MAX)
+				p->connection[i][j] =  p->connection[i][k]+p->connection[k][j];
+			}
+		}
+	}
+}
+
+void PrintGraph(GRAPH *p)
 {
 	printf("\t");
 	for(int i = 0;i < p->Vnum;i++) printf("\t%d",i+1);
@@ -52,7 +74,8 @@ void printgraph(GRAPH *p)
 			if(j==0) printf("\t%d",i+1);
 			else
 			{
-				printf("\t%d",p->connection[i][j-1]);
+				if(p->connection[i][j-1]==MAX)  printf("\t∞");
+				else printf("\t%d",p->connection[i][j-1]);
 			}
 		}
 		printf("\n\n");
@@ -63,7 +86,10 @@ int main()
 {
 	GRAPH graph;
 	GRAPH *p = &graph;
-	creatgraph(p);
-	printgraph(p);
+	CreatGraph(p);
+	PrintGraph(p);
+	printf("the shortest is that:\n\n");
+	SearchTheway(p);
+	PrintGraph(p);
 	return 0;
 } 
