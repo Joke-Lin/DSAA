@@ -86,16 +86,16 @@ int Dpbag_one_index1(int Weight,int N)
 	return Big_Val_one[Weight];
 }
 
-int Dpbag_one_index2(int Weight,int N)
+int Dpbag_one_index2(int Weight,int N) //error
 {
 	for(int i = 1;i <= Weight;i++)
 	{
 		for(int j = N-1;j>=0;j--)
 		{
 			if(goods[j].wei <= i)
-				{
-					Big_Val_one[i] = max(Big_Val_one[i],Big_Val_one[i-goods[j].wei]+goods[j].val);
-				}
+			{
+				Big_Val_one[i] = max(Big_Val_one[i],Big_Val_one[i-goods[j].wei]+goods[j].val);
+			}
 		}
 	}
 	return Big_Val_one[Weight];
