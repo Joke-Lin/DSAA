@@ -8,8 +8,8 @@ class BigINT
 {
 public:
 	BigINT operator = (const string& str);
-	static const int Weight = 8;
-	static const int MAX = 100000000;
+	static const int Weight = 4;
+	static const int MAX = 10000;
 	BigINT operator + (const BigINT num_2);
 	BigINT operator * (const BigINT num_2);
 	friend ostream& operator << (ostream& out,const BigINT& num_2);
@@ -40,7 +40,7 @@ ostream& operator << (ostream& out,const BigINT& num_2)
 	cout << num_2.num[SIZE];           //1避免输出00000000001这样
 	for(int i = SIZE-1;i >= 0;i--)
 	{
-		out.width(8);
+		out.width(BigINT::Weight);
 		out.fill('0');
 		out << num_2.num[i];       //100000009这样的数字存为1，9，输出要前补零
 	}
@@ -83,18 +83,43 @@ BigINT BigINT::operator + (const BigINT num_2)
 
 BigINT BigINT::operator * (const BigINT num_2)
 {
-	BigINT temp; temp.num.clear();
-
+	BigINT temp_1,temp_2; //temp1用来存每一位2来存结果
+	temp_1.num.clear(); temp_2.num.clear(); temp_2.num.push_back(0);
+	int i = 0,get = 0,j = 0;
+	int len_1 = num.size()-1;
+	int len_2 = num_2.num.size()-1;
+	//cout << "len1 = "<<len_1 <<" len2 = " << len_2 << endl;
+	for(int i = 0;i <= len_2;i++)
+	{
+		temp_1.num.clear();
+		//vector<int>().swap(temp_1.num);
+		get = 0;  j = 0;
+		while(true)
+		{
+			int mid = 0;
+			if(j > len_1 && get == 0) break;
+			if(j <= len_1) mid = num_2.num[i]*num[j];
+			mid += get;
+			temp_1.num.push_back(mid%MAX);
+			get = mid/MAX;
+			j++;
+		}
+		temp_1.num.insert(temp_1.num.begin(),i,0);
+		//cout << i <<"is " << temp_1 << endl;
+		temp_2 = temp_2 + temp_1;
+	}
+	return temp_2;
 }
 
 int main()
 {
-	int n; cin >> n;
 	BigINT a,b;
-	while(n--)
-		{
-			cin >> a >> b;
-			cout << a+b << endl;
-		}
+	// while(n--)
+	// 	{
+	// 		cin >> a >> b;
+	// 		cout << a*b << endl;
+	// 	}
+	cin >> a >> b;
+	cout << a*b ;
 	return 0;
 }
