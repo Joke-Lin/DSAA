@@ -31,8 +31,8 @@ int main()
 	int Weigt,N;
 	cin >> Weigt >> N;
 	for(int i = 0;i < N;i++) cin >> goods[i].wei >> goods[i].val;
-	std::cout << Dpbag_1(Weigt,N) << '\n';
-	cout << Dpbag_one_index2(Weigt,N);
+	//std::cout << Dpbag_1(Weigt,N) << '\n';
+	cout << Dpbag_one_index1(Weigt,N);
 	return 0;
 }
 
@@ -82,6 +82,7 @@ int Dpbag_one_index1(int Weight,int N)
 		{
 			Big_Val_one[j] = max(Big_Val_one[j],Big_Val_one[j-goods[i].wei]+goods[i].val);
 		}
+		cout << Big_Val_one[Weight] << endl;
 	}
 	return Big_Val_one[Weight];
 }
