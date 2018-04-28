@@ -4,18 +4,20 @@
 
 using namespace std;
 
-void getnext(string,vector<int>&);
+void getnext(string,vector<int>&);//next数组存放指定位置前的最长相同前后缀，不包括自己本身
+int KMP(string ,string,vector<int>);
 
 int main()
 {
-	string target;
+	string target,object;
 	std::vector<int> next;
-	while(cin >> target)
+	while(true)
 	{
+		getline(cin,object);
+		getline(cin,target);
 		next.clear();
 		getnext(target,next);
-		for(auto it = next.begin();it!=next.end();it++) cout << *it << " ";
-		cout << endl;
+		cout << KMP(object,target,next)<<endl;
 	}
 	return 0;
 }
@@ -27,11 +29,31 @@ void getnext(string target,vector<int>& next)
 	next.push_back(-1);
 	while(i < len)
 	{
-		if(j==-1||target[i]==target[j])
+		if(j==-1||target[i]==target[j])  //如果满足条件则都向后移动一位
 		{
 			i++; j++;
 			next.push_back(j);
 		}
-		else j = next[j];
+		else j = -1;    //否则J重新从头开始
 	}
+}
+
+int KMP(string object,string target,vector<int> it)
+{
+	int i = 0,j = 0;
+	int len1 = object.size();
+	int len2 = target.size();
+	while(i < len1 && j <len2)
+	{
+		if(j==-1 || object[i]==target[j])
+		{
+			i++;j++;
+		}
+		else j = it[j];
+	}
+	if(j==len2)
+	{
+		return i-j;
+	}
+	else return -1;
 }
