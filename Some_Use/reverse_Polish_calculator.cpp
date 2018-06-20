@@ -16,6 +16,9 @@ void del(int); //对input中的回退功能
 
 int main()
 {	
+	string a = "abc";
+	a.insert(1,1,'d');
+	cout << a << endl;
 	cout << "Welocme to JOKER_Lin's calculator.....\n\n";
 	string src; 
 	while(true)
@@ -77,6 +80,7 @@ string input()
 		{
 			del(0);
 			src.erase(src.length()-1,1);
+			prev = src.at(src.length()-1);
 		}
 		else
 		{
@@ -98,6 +102,7 @@ string input()
 			}
 			cout << c;
 		}
+		//cout <<"\nsrc:" <<  src << endl;
 	}
 	return src;
 }
@@ -112,15 +117,21 @@ string_int transform(string src)
 	int sum = 0;
 	int change_number[50];
 	stack<char> kuohao;
+	int kuohao_conflict[10];
+	int index = 0;
 	//判断是否合法（括号的问题） 使用栈（入栈  ）使出（栈，合法的话最后是空栈
 	for(int i = 0;i < src.length();i++)
 	{
+		if(src[i]=='('&&src[i+1]==')')  //在()里面插入0
+		{
+			kuohao_conflict[index++] = i+1;
+		}
 		if(src[i] == '(') kuohao.push(src[i]);
 		if(src[i] == ')') kuohao.pop();
 	}
 	if(!kuohao.empty())
 	{
-		result.first = "Error";
+		result.first = "Error!!! the number of () is not right";
 		result.second = 0;
 		return result;
 	}
@@ -142,11 +153,15 @@ string_int transform(string src)
 		}
 		else flag = false;
 	}
-	//把￥#替换 从后往前替换，避免长度改变导致i过期
+	//把￥#替换 从后往前替换，避免长度改变导致i过期index同
 	for(int i = sum-1;i >= 0;i--)
 	{
 		if(src[change_number[i]] == '#') src.replace(change_number[i],1,minus);
 		if(src[change_number[i]] == '$') src.replace(change_number[i],1,plus);
+	}
+	for(int i = index-1;i >= 0;i--)
+	{
+		src.insert(kuohao_conflict[i],1,'0');
 	}
 	//判断负号用#号替代,正号用$代替
 	flag = true;
@@ -258,6 +273,12 @@ string_int transform(string src)
 						break;
 					case '/':
 						num3 = num2/num1;
+						if(num1 == 0) 
+						{
+							result.first = "wrong !!!! over the zero";
+							result.second = 0;
+							return result;
+						}
 						break;
 				}
 				numbers.push(num3);
@@ -265,6 +286,7 @@ string_int transform(string src)
 			number.erase(0,number.length());//将number置为空，准备接受下一个数字
 		}
 	}
-	result.second = numbers.top();
+	if(!numbers.empty())result.second = numbers.top();
+	else result.second = atof(number.c_str());
 	return result;
 }
