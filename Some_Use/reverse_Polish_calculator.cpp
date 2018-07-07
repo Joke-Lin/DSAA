@@ -66,7 +66,7 @@ string input()
 			}
 			else continue;
 		}
-		
+		if(c == '/' || c=='*' && src.length()==1) continue;
 		if(c == '\r')
 		{
 			if(judgec(prev)||prev == '(') continue;
@@ -79,8 +79,11 @@ string input()
 		else if(c == '\b') 
 		{
 			del(0);
-			src.erase(src.length()-1,1);
-			prev = src.at(src.length()-1);
+			if(src.length()!= 0)
+			{
+				src.erase(src.length()-1,1);
+				if(src.length()!= 0) prev = src.at(src.length()-1);
+			}
 		}
 		else
 		{
@@ -111,8 +114,8 @@ string input()
 string_int transform(string src)
 {
 	string_int result;
-	const string minus = "(-1)*";
-	const string plus = "(+1)*";
+	const string minus = "(#1)*";
+	const string plus = "($1)*";
 	bool flag = true;
 	int sum = 0;
 	int change_number[50];
@@ -135,8 +138,8 @@ string_int transform(string src)
 		result.second = 0;
 		return result;
 	}
-	//源字符串预处理，处理例如（-（-2+1））这类嵌套有符号 将负号替换为（-1）* 正号变为 （1）*
-	flag = true;  //与下面代码块功能相同，找出负正号
+	//源字符串预处理，处理例如（-（-2+1））这类嵌套有符号 将负号替换为（#1）* 正号变为 （1）*
+	flag = true;  //判断负号用#号替代,正号用$代替
 	for(int i = 0;i < src.length();i++)
 	{
 		if(src[i] == ' ') continue;  //空格就下一次
@@ -164,21 +167,21 @@ string_int transform(string src)
 		src.insert(kuohao_conflict[i],1,'0');
 	}
 	//判断负号用#号替代,正号用$代替
-	flag = true;
-	for(int i = 0;i < src.length();i++)
-	{
-		if(src[i] == ' ') continue;  //空格就下一次
-		if(flag && (src[i]=='-'||src[i] == '+'))
-		{
-			if(src[i] == '-') src[i] = '#';
-			else if(src[i] == '+') src[i] = '$';
-		}
-		else if(src[i]=='(')
-		{
-			flag = true;
-		}
-		else flag = false;
-	}
+	// flag = true;
+	// for(int i = 0;i < src.length();i++)
+	// {
+		// if(src[i] == ' ') continue;  //空格就下一次
+		// if(flag && (src[i]=='-'||src[i] == '+'))
+		// {
+			// if(src[i] == '-') src[i] = '#';
+			// else if(src[i] == '+') src[i] = '$';
+		// }
+		// else if(src[i]=='(')
+		// {
+			// flag = true;
+		// }
+		// else flag = false;
+	// }
 	map<char,int> priority;           //设置优先级
 	priority['+'] = priority['-'] = 1;
 	priority['*'] = priority['/'] = 2;
@@ -242,7 +245,7 @@ string_int transform(string src)
 	for(int i = 0;i < result.first.length();i++)
 	{
 		char c = result.first[i];
-		if(i == result.first.length()) break;
+		//if(i == result.first.length()) break;
 		if(isdigit(c)||c == '.'|| c == '#' || c=='$')  //正负号处理
 		{
 			if(c == '#') c = '-';
@@ -287,6 +290,6 @@ string_int transform(string src)
 		}
 	}
 	if(!numbers.empty())result.second = numbers.top();
-	else result.second = atof(number.c_str());
+	//else result.second = atof(number.c_str());
 	return result;
 }
