@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "algorithm": "cpp",
         "limits": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "xiosbase": "cpp"
     }
 }
