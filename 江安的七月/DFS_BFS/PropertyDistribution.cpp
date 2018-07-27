@@ -14,8 +14,8 @@ void dfs(int x,int y,char target);//对此类进行DFS
 
 int main()
 {
-    freopen("./in.txt","r",stdin);
-    freopen("./out.txt","w",stdout);
+    // freopen("./in.txt","r",stdin);
+    // freopen("./out.txt","w",stdout);
     while(scanf("%d%d",&h,&w),w+h)
     {
         int x,y;
