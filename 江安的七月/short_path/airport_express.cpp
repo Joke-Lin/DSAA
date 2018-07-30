@@ -1,3 +1,4 @@
+//https://www.2cto.com/kf/201404/296684.html
 //此章节皆为书本原题 TLE
 #include<iostream>
 #include<cstdio>
