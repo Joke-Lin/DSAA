@@ -12,6 +12,7 @@
         "xstring": "cpp",
         "queue": "cpp",
         "xhash": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "iosfwd": "cpp"
     }
 }
