@@ -1,4 +1,4 @@
-//https://www.2cto.com/kf/201404/296684.html
+// http://www.cnblogs.com/wuwangchuxin0924/p/6186608.html
 //此章节皆为书本原题 TLE
 #include<iostream>
 #include<cstdio>
