@@ -1,4 +1,4 @@
-//DFS
+//DFS 联通快数目
 #include<iostream>
 #include<cstdio>
 #include<algorithm>
