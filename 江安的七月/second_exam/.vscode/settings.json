@@ -12,6 +12,7 @@
         "initializer_list": "cpp",
         "list": "cpp",
         "xhash": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "xtree": "cpp"
     }
 }
