@@ -4,6 +4,14 @@
         "algorithm": "cpp",
         "limits": "cpp",
         "cstring": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "queue": "cpp",
+        "xutility": "cpp",
+        "vector": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp"
     }
 }
