@@ -43,7 +43,6 @@ int main()
     freopen("./out.txt","w",stdout);
 #endif
     //预处理
-    clock_t a = clock();
     int m = (int)sqrt(maxn-5+0.5);
     memset(prime,0,sizeof(prime));
     memset(prime_2,0,sizeof(prime_2));
@@ -59,8 +58,6 @@ int main()
         }
         else prime_2[i] = prime_2[i-1];
     }
-    clock_t b = clock();
-    cout << b-a << endl;
     int T; scanf("%d",&T);
     for(int kase = 1; kase<= T;kase++)
     {
