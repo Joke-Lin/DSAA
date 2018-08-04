@@ -1,45 +1,50 @@
-//:HDU1231  http://acm.hdu.edu.cn/showproblem.php?pid=1231
-
 #include<iostream>
-#include<cstdio>
-#include<cstdlib>
-#include<memory.h>
+#include<string>
+#include<cstdio> 
+#include<sstream>
+#include<algorithm>
+#include<cstring>
 
 using namespace std;
+const int maxn = 1e5+10;
 
-int array[10005];
-int dp[10005];
+int dp[maxn];//以i结尾的最优解
+int number[maxn];
 
 int main()
 {
-	int n;
-	while(scanf("%d",&n))
+	int T;scanf("%d",&T);
+	getchar();
+	for(int kase = 1;kase <= T;kase++)
 	{
-		int Max = 0;
-		int flag = false;
-		memset(array,0,sizeof(array));
+		bool flag = false;
 		memset(dp,0,sizeof(dp));
-		if(n == 0) break;
+		int n;scanf("%d",&n);
+		int ed = 0,st = 0;
 		for(int i = 0;i < n;i++) 
 		{
-			scanf("%d",&array[i]);
-			if(array[i] >= 0) flag = true;
-			if(i == 0) dp[0] = array[i];
-			else dp[i] = max(0,dp[i-1])+array[i];
-			Max = dp[i] > dp[Max] ? i : Max;
+			scanf("%d",number+i);
+			if(number[i] > 0) {
+				flag = true;
+			}
 		}
-		int min = 0;
-		for(int i = Max-1;;i--)
+		dp[0] = number[0];
+		for(int i = 1;i < n;i++)
 		{
-			if(dp[i] <= 0) 
+			dp[i] = max(number[i],dp[i-1]+number[i]);
+			ed = dp[i] > dp[ed] ? i : ed;
+		}
+		for(int i = ed-1;i >= 0;i--)
+		{
+			if(dp[i] < 0)
 			{
-				min = i+1;
+				st = i+1;
 				break;
 			}
 		}
-		if(flag) printf("%d %d %d\n",dp[Max],array[min],array[Max]);
-		else printf("%d %d %d\n",0,array[0],array[n-1]);
+		printf("Case %d:\n",kase);
+		printf("%d %d %d\n",dp[ed],st+1,ed+1);
+		if(kase != T) printf("\n");
 	}
-	
 	return 0;
 }
