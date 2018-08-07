@@ -32,7 +32,6 @@ int main()
 #endif
     while(~scanf("%d%d",&n,&m),n+m)
     {
-        //init(n);
         for(int i = 0;i < m;i++)
         {
             int st,ed,cost; scanf("%d%d%d",&st,&ed,&cost);
