@@ -5,5 +5,5 @@
         "limits": "cpp",
         "cstring": "cpp",
         "xiosbase": "cpp"
-    }
+    },
 }
