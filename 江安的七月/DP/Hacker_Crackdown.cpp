@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cstdio>
 #include<memory.h>
+#include<algorithm>
 
 using namespace std;
 
