@@ -1,3 +1,4 @@
+// https://vjudge.net/contest/245338#problem/A
 #include<iostream>
 #include<cstdio>
 #include<cstring>
@@ -17,7 +18,7 @@ struct edge{
 vector<edge> G[maxn];
 bool used[maxn];
 
-void add_edge(int from,int to,int cap)
+void add_edge(int from,int to,int cap)//妙
 {
     G[from].push_back(edge(to,cap,G[to].size()));//反向边就是下面的
     G[to].push_back(edge(from,0,G[from].size()-1));//上面的那个
