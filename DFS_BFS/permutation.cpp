@@ -42,9 +42,7 @@ void permutation2(int pos,int n)
 
 int main()
 {
-	cin >> POS >> N;
-	permutation1(POS,N+1);
-	cout<<"/****************************/\n";
-	permutation2(POS,N+1);
+	number[0] = 1,number[1] = 2,number[2] = 3;
+	permutation1(0,3);
 	return 0;
 }
