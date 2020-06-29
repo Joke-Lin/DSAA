@@ -6,7 +6,6 @@
 #include<iostream>
 #include<queue>
 
-
 using namespace std;
 
 typedef pair<int,int> P; //每个点的坐标 x = first y = second
@@ -19,10 +18,12 @@ int Distance[102][102] = {INF};  //存放点到起点的距离
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};  //四个方向
 
-int BFS()
-{
-	for(int i = 0;i < N;i ++)
-		for(int j = 0;j < M;j++) Distance[i][j] = INF; //初始化距离，设置为极大
+int BFS() {
+	for(int i = 0;i < N;i ++) {
+		for(int j = 0;j < M;j++) {
+			Distance[i][j] = INF; //初始化距离，设置为极大
+		}
+	}
 	queue<P> que;
 	que.push(P(startx,starty));
 	Distance[startx][starty] = 0;       //设置起点
@@ -45,13 +46,10 @@ int BFS()
 	return Distance[endx][endy];
 }
 
-int main()
-{
-	//import
+int main() {
 	cin >> N >> M ;
-	for(int i = 0;i < N;i ++)
-		for(int j = 0;j < M;j++)
-		{
+	for(int i = 0;i < N;i ++) {
+		for(int j = 0;j < M;j++) {
 			cin >> map[i][j];
 			if(map[i][j] == 'S')
 			{
@@ -64,6 +62,7 @@ int main()
 				endy = j;
 			}
 		}
+	}
 	cout << BFS();
 	return 0;
 }
